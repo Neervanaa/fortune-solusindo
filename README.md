@@ -115,3 +115,4 @@ login admin.
   disalin langsung ke `app/globals.css`), jadi tampilan situs seharusnya identik dengan versi
   PHP-nya.
 # fortune-solusindo2
+# fortune-solusindo2
