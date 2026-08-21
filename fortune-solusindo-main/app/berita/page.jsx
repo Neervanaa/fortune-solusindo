@@ -17,7 +17,22 @@ export default async function BeritaListPage({ searchParams }) {
   const q = (searchParams?.q || '').trim();
   const bulan = (searchParams?.bulan || '').trim();
 
-  const articles = await getBerita();
+  let articles;
+  try {
+    articles = await getBerita();
+  } catch (err) {
+    console.error('Database error:', err);
+    return (
+      <>
+        <Navbar active="berita" />
+        <main className="mx-auto max-w-2xl px-6 py-24 text-center">
+          <h1 style={{ color: 'var(--ink)', fontSize: '1.5rem', fontWeight: 600, marginBottom: '1rem' }}>⚠️ Gagal memuat berita</h1>
+          <pre style={{ textAlign: 'left', background: '#f5f5f5', padding: '1rem', borderRadius: '8px', fontSize: '0.8rem', overflow: 'auto', color: '#c00' }}>{err.message}</pre>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   const filtered = articles.filter((a) => {
     if (bulan && (a.month || '') !== bulan) return false;

@@ -7,9 +7,35 @@ import { getHero, getAbout, getLayanan, getServis, getEkspansi, getVisiMisi, get
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const [h, a, l, s, ex, vm, k] = await Promise.all([
-    getHero(), getAbout(), getLayanan(), getServis(), getEkspansi(), getVisiMisi(), getKontak(),
-  ]);
+  let h, a, l, s, ex, vm, k;
+  try {
+    [h, a, l, s, ex, vm, k] = await Promise.all([
+      getHero(), getAbout(), getLayanan(), getServis(), getEkspansi(), getVisiMisi(), getKontak(),
+    ]);
+  } catch (err) {
+    console.error('Database error:', err);
+    return (
+      <main className="mx-auto max-w-2xl px-6 py-24 text-center">
+        <h1 style={{ color: 'var(--ink)', fontSize: '1.5rem', fontWeight: 600, marginBottom: '1rem' }}>
+          ⚠️ Gagal terhubung ke database
+        </h1>
+        <p style={{ color: 'var(--ink-soft)', marginBottom: '1rem' }}>
+          Pastikan environment variables di Vercel sudah benar.
+        </p>
+        <pre style={{
+          textAlign: 'left',
+          background: '#f5f5f5',
+          padding: '1rem',
+          borderRadius: '8px',
+          fontSize: '0.8rem',
+          overflow: 'auto',
+          color: '#c00',
+        }}>
+          {err.message}
+        </pre>
+      </main>
+    );
+  }
 
   if (!h) {
     return (
