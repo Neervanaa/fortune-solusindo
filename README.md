@@ -114,3 +114,4 @@ login admin.
 - Semua desain (warna, font, layout) sudah 1:1 mengikuti CSS asli kamu (`assets/globals.css`
   disalin langsung ke `app/globals.css`), jadi tampilan situs seharusnya identik dengan versi
   PHP-nya.
+# fortune-solusindo2
